@@ -8,5 +8,6 @@
     <string name="offline">Offline</string>
     <string name="teacher">Teacher</string>
     <string name="student">Student</string>
+    <string name="show_online_only">Show online users only</string>
 
 </resources>

@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +17,13 @@ public class Feed extends AppCompatActivity {
 
     private static Context context;
 
-    private List<User> users;
+    private final List<User> users = new ArrayList<>();
+    private final List<User> filteredUsers = new ArrayList<>();
+    private final UserFilter userFilter = new UserFilter();
     FeedAdapter feedAdapter;
     ListView listView;
+    Switch onlineOnlySwitch;
 
-    public static final String USER_NAME = "user_name";
-    public static final String USER_LANGUAGE = "user_language";
-    public static final String USER_STATUS = "user_status";
-    public static final String USER_TYPE = "user_type";
-    public static final String USER_STATUS_COLOR = "user_status_color";
     public static final String USER_OBJECT = "user_object";
 
     @Override
@@ -31,8 +31,7 @@ public class Feed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        users = new ArrayList<User>();
-        feedAdapter = new FeedAdapter(this, users);
+        feedAdapter = new FeedAdapter(this, filteredUsers);
 
         listView = (ListView) findViewById(R.id.user_list);
         listView.setAdapter(feedAdapter);
@@ -45,13 +44,7 @@ public class Feed extends AppCompatActivity {
 
                 intent.putExtra(USER_OBJECT, user);
 
-                //intent.putExtra(USER_NAME, user.getUserName());
-                //intent.putExtra(USER_LANGUAGE, user.getMainLanguage().toString());
-                //intent.putExtra(USER_STATUS, user.getStatus().toString());
-                //intent.putExtra(USER_TYPE, user.getType().toString());
-
                 startActivity(intent);
-
             }
         });
 
@@ -61,11 +54,33 @@ public class Feed extends AppCompatActivity {
         users.add(new User("Charlie", Language.FRENCH, UserType.TEACHER, Status.ONLINE));
         users.add(new User("user1", Language.ENGLISH, UserType.TEACHER, Status.ONLINE));
 
+        onlineOnlySwitch = (Switch) findViewById(R.id.online_only_switch);
+        onlineOnlySwitch.setText(R.string.show_online_only);
+        onlineOnlySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    userFilter.setStatus(Status.ONLINE);
+                }else{
+                    userFilter.clear();
+                }
+                updateFilter();
+            }
+        });
+
+        updateFilter();
+
         this.context = this;
     }
 
     public static Context getContext(){
         return context;
+    }
+
+    public void updateFilter(){
+        filteredUsers.clear();
+        filteredUsers.addAll(filterUsers(userFilter));
+        feedAdapter.notifyDataSetChanged();
     }
 
     public List<User> getUsers(){
@@ -76,25 +91,36 @@ public class Feed extends AppCompatActivity {
         return null;
     }
 
-    public List<User> filterUsers(List<User> users, Language lang, Status status, UserType type){
-        if(lang != null){
-            // TODO
-            // Implement filter to only show people with this language
+    public List<User> filterUsers(UserFilter filter){
+        List<User> filtered = new ArrayList<>();
+
+        if(filter.getLanguage() == null && filter.getStatus() == null && filter.getType() == null){
+            filtered.addAll(users);
+            return filtered;
         }
 
-        if(status != null){
-            // TODO
-            // Implement filter to only show people that are online / offline
+        if(filter.getLanguage() != null){
+            for(User user : users){
+                if(user.getMainLanguage() == filter.getLanguage())
+                    filtered.add(user);
+            }
         }
 
-        if(type != null){
-            // TODO
-            // Implement filter to only show people of this type
+        if(filter.getStatus() != null){
+            for(User user : users){
+                if(user.getStatus() == filter.getStatus() && !filtered.contains(user))
+                    filtered.add(user);
+            }
         }
 
-        // filterUsers(Users, Language.ENGLISH,
+        if(filter.getType() != null){
+            for(User user : users){
+                if(user.getType() == filter.getType() && !filtered.contains(user))
+                    filtered.add(user);
+            }
+        }
 
-        return null;
+        return filtered;
 
     }
 }
