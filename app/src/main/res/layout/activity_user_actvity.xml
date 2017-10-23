@@ -49,4 +49,30 @@
         android:layout_below="@+id/ind_user_name"
         android:text="Language"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/ind_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/call_user_button"
+        android:layout_alignEnd="@+id/ind_user_type"
+        android:layout_alignLeft="@+id/ind_language"
+        android:layout_alignRight="@+id/ind_user_type"
+        android:layout_alignStart="@+id/ind_language"
+        android:layout_below="@+id/ind_language"
+        android:layout_marginTop="27dp"
+        android:text="description"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/call_user_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ind_description"
+        android:layout_alignLeft="@+id/ind_description"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ind_description"
+        android:layout_alignStart="@+id/ind_description"
+        android:text="call [user]"
+        android:textSize="18sp" />
 </RelativeLayout>

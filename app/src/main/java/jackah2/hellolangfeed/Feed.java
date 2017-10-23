@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Feed extends AppCompatActivity {
 
-    private static Context context;
+    private static Context _context;
 
     private final List<User> users = new ArrayList<>();
     private final List<User> filteredUsers = new ArrayList<>();
@@ -30,6 +30,8 @@ public class Feed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
+        _context = this;
 
         feedAdapter = new FeedAdapter(this, filteredUsers);
 
@@ -69,17 +71,15 @@ public class Feed extends AppCompatActivity {
         });
 
         updateFilter();
-
-        this.context = this;
     }
 
     public static Context getContext(){
-        return context;
+        return _context;
     }
 
     public void updateFilter(){
         filteredUsers.clear();
-        filteredUsers.addAll(filterUsers(userFilter));
+        filteredUsers.addAll(userFilter.filter(users));
         feedAdapter.notifyDataSetChanged();
     }
 
@@ -91,36 +91,5 @@ public class Feed extends AppCompatActivity {
         return null;
     }
 
-    public List<User> filterUsers(UserFilter filter){
-        List<User> filtered = new ArrayList<>();
 
-        if(filter.getLanguage() == null && filter.getStatus() == null && filter.getType() == null){
-            filtered.addAll(users);
-            return filtered;
-        }
-
-        if(filter.getLanguage() != null){
-            for(User user : users){
-                if(user.getMainLanguage() == filter.getLanguage())
-                    filtered.add(user);
-            }
-        }
-
-        if(filter.getStatus() != null){
-            for(User user : users){
-                if(user.getStatus() == filter.getStatus() && !filtered.contains(user))
-                    filtered.add(user);
-            }
-        }
-
-        if(filter.getType() != null){
-            for(User user : users){
-                if(user.getType() == filter.getType() && !filtered.contains(user))
-                    filtered.add(user);
-            }
-        }
-
-        return filtered;
-
-    }
 }

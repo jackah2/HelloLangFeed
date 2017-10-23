@@ -16,17 +16,19 @@ public class UserActvity extends AppCompatActivity {
 
         User user = (User) intent.getSerializableExtra(Feed.USER_OBJECT);
 
-        TextView indUserName, indLanguage, indStatus, indType;
+        TextView indUserName, indLanguage, indStatus, indType, indDescription;
         indUserName = (TextView) findViewById(R.id.ind_user_name);
         indLanguage = (TextView) findViewById(R.id.ind_language);
         indStatus = (TextView) findViewById(R.id.ind_status);
         indType = (TextView) findViewById(R.id.ind_user_type);
+        indDescription = (TextView) findViewById(R.id.ind_description);
 
         indUserName.setText(user.getUserName());
         indLanguage.setText(user.getMainLanguage().toString());
         indStatus.setText(user.getStatus().toString());
         indStatus.setTextColor(user.getStatus().getColor());
         indType.setText(user.getType().toString());
+        indDescription.setText(user.getDescription());
 
 
     }

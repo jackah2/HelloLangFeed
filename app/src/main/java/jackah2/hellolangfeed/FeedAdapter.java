@@ -31,7 +31,7 @@ public class FeedAdapter extends ArrayAdapter<User> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.feed_users, parent, false);
         }
 
-        TextView userName, spokenLanguage, status, userType;
+        TextView userName, spokenLanguage, status, userType, description;
         userName = (TextView) convertView.findViewById(R.id.user_name);
         spokenLanguage = (TextView) convertView.findViewById(R.id.spoken_language);
         status = (TextView) convertView.findViewById(R.id.status);
