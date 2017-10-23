@@ -18,4 +18,11 @@ public enum UserType {
     public String toString() {
         return Feed.getContext().getResources().getString(typeID);
     }
+
+    public static UserType match(String str){
+        for(UserType type : UserType.values())
+            if(type.toString().equalsIgnoreCase(str))
+                return type;
+        return null;
+    }
 }

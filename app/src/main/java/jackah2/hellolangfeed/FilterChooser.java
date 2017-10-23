@@ -2,11 +2,13 @@ package jackah2.hellolangfeed;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class FilterChooser extends AppCompatActivity {
+public class FilterChooser extends AppCompatActivity{
 
     private TextView languageText, typeText, statusText;
     private Spinner languageSel, typeSel, statusSel;
@@ -31,6 +33,48 @@ public class FilterChooser extends AppCompatActivity {
         languageSel.setAdapter(getAdapter(R.array.languages));
         typeSel.setAdapter(getAdapter(R.array.types));
         statusSel.setAdapter(getAdapter(R.array.statuses));
+
+        languageSel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) parent.getItemAtPosition(position);
+                Feed.getUserFilter().setLanguage(Language.match(item));
+
+                ((Feed) Feed.getContext()).updateFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        typeSel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) parent.getItemAtPosition(position);
+                Feed.getUserFilter().setType(UserType.match(item));
+
+                ((Feed) Feed.getContext()).updateFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        statusSel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) parent.getItemAtPosition(position);
+                Feed.getUserFilter().setStatus(Status.match(item));
+
+                ((Feed) Feed.getContext()).updateFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private ArrayAdapter<CharSequence> getAdapter(int textArrayResId){

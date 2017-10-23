@@ -20,4 +20,11 @@ public enum Language {
     public String toString() {
         return Feed.getContext().getResources().getString(langID);
     }
+
+    public static Language match(String str){
+        for(Language lang : Language.values())
+            if(lang.toString().equalsIgnoreCase(str))
+                return lang;
+        return null;
+    }
 }

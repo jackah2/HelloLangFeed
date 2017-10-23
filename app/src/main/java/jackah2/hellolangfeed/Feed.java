@@ -18,7 +18,7 @@ public class Feed extends AppCompatActivity {
 
     private final List<User> users = new ArrayList<>();
     private final List<User> filteredUsers = new ArrayList<>();
-    private final UserFilter userFilter = new UserFilter();
+    private static final UserFilter userFilter = new UserFilter();
     FeedAdapter feedAdapter;
     ListView listView;
     Button filterUsersButton;
@@ -78,7 +78,7 @@ public class Feed extends AppCompatActivity {
         feedAdapter.notifyDataSetChanged();
     }
 
-    public UserFilter getUserFilter(){
+    public static UserFilter getUserFilter(){
         return userFilter;
     }
 

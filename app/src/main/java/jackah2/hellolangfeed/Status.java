@@ -25,4 +25,11 @@ public enum Status {
     public int getColor(){
         return Color.parseColor(Feed.getContext().getResources().getString(colorID));
     }
+
+    public static Status match(String str){
+        for(Status status : Status.values())
+            if(status.toString().equalsIgnoreCase(str))
+                return status;
+        return null;
+    }
 }
