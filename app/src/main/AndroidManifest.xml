@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserActvity"></activity>
+        <activity android:name=".UserActvity" />
+        <activity android:name=".FilterChooser"></activity>
     </application>
 
 </manifest>

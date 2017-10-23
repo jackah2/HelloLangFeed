@@ -8,6 +8,5 @@
     <string name="offline">Desconectado</string>
     <string name="teacher">Maestro</string>
     <string name="student">Estudiante</string>
-    <string name="show_online_only">¿Solo mostrar los usuarios en línea?</string>
 
 </resources>

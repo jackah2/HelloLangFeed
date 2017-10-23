@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class Feed extends AppCompatActivity {
     private final UserFilter userFilter = new UserFilter();
     FeedAdapter feedAdapter;
     ListView listView;
-    Switch onlineOnlySwitch;
+    Button filterUsersButton;
 
     public static final String USER_OBJECT = "user_object";
 
@@ -56,17 +55,13 @@ public class Feed extends AppCompatActivity {
         users.add(new User("Charlie", Language.FRENCH, UserType.TEACHER, Status.ONLINE));
         users.add(new User("user1", Language.ENGLISH, UserType.TEACHER, Status.ONLINE));
 
-        onlineOnlySwitch = (Switch) findViewById(R.id.online_only_switch);
-        onlineOnlySwitch.setText(R.string.show_online_only);
-        onlineOnlySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        filterUsersButton = (Button) findViewById(R.id.filter_users_button);
+        filterUsersButton.setText(R.string.filter_users_button);
+        filterUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    userFilter.setStatus(Status.ONLINE);
-                }else{
-                    userFilter.clear();
-                }
-                updateFilter();
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), FilterChooser.class));
             }
         });
 
@@ -81,6 +76,10 @@ public class Feed extends AppCompatActivity {
         filteredUsers.clear();
         filteredUsers.addAll(userFilter.filter(users));
         feedAdapter.notifyDataSetChanged();
+    }
+
+    public UserFilter getUserFilter(){
+        return userFilter;
     }
 
     public List<User> getUsers(){
