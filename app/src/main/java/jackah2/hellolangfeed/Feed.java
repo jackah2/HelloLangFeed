@@ -53,7 +53,15 @@ public class Feed extends AppCompatActivity {
         users.add(new User("Bob", Language.MANDARIN, UserType.STUDENT, Status.OFFLINE));
         users.add(new User("Nick", Language.SPANISH, UserType.STUDENT, Status.OFFLINE));
         users.add(new User("Charlie", Language.FRENCH, UserType.TEACHER, Status.ONLINE));
-        users.add(new User("user1", Language.ENGLISH, UserType.TEACHER, Status.ONLINE));
+        users.add(new User("user1", Language.ENGLISH, UserType.TEACHER, Status.OFFLINE));
+        users.add(new User("user2", Language.FRENCH, UserType.TEACHER, Status.ONLINE));
+        users.add(new User("user3", Language.MANDARIN, UserType.TEACHER, Status.ONLINE));
+        users.add(new User("user4", Language.SPANISH, UserType.TEACHER, Status.ONLINE));
+        users.add(new User("user5", Language.ENGLISH, UserType.STUDENT, Status.ONLINE));
+        users.add(new User("user6", Language.MANDARIN, UserType.STUDENT, Status.OFFLINE));
+        users.add(new User("user7", Language.FRENCH, UserType.STUDENT, Status.ONLINE));
+        users.add(new User("user8", Language.SPANISH, UserType.STUDENT, Status.OFFLINE));
+        users.add(new User("user9", Language.ENGLISH, UserType.STUDENT, Status.ONLINE));
 
 
         filterUsersButton = (Button) findViewById(R.id.filter_users_button);
@@ -85,7 +93,6 @@ public class Feed extends AppCompatActivity {
     public List<User> getUsers(){
         // TODO
         // Implement method to get all users of app
-        // Can filter this list
 
         return null;
     }
